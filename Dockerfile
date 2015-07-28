@@ -6,6 +6,8 @@ EXPOSE 9000
 
 WORKDIR /opt
 
+RUN mkdir /app
+
 # Install OpenJDK
 RUN mkdir /app/jdk
 RUN curl -s -L https://lang-jvm.s3.amazonaws.com/jdk/cedar-14/openjdk1.8-latest.tar.gz | tar xz -C /app/jdk
