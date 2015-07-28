@@ -1,15 +1,15 @@
 FROM heroku/cedar:14
 MAINTAINER Arve Knudsen <arve.knudsen@gmail.com>
 
-ENV PATH /opt/jdk/bin:/opt/bin:$PATH
-ENV JAVA_HOME /opt/jdk
+ENV JAVA_HOME /app/jdk
 EXPOSE 9000
-ENTRYPOINT ["sbt"]
+
+WORKDIR /opt
 
 # Install OpenJDK
-RUN mkdir /opt/jdk
-RUN curl -s -L https://lang-jvm.s3.amazonaws.com/jdk/cedar-14/openjdk1.8-latest.tar.gz | tar xz -C /opt/jdk
-WORKDIR /opt
+RUN mkdir /app/jdk
+RUN curl -s -L https://lang-jvm.s3.amazonaws.com/jdk/cedar-14/openjdk1.8-latest.tar.gz | tar xz -C /app/jdk
+ENV PATH /app/jdk/bin:$PATH
 
 # Install sbt
 ENV SBT_VERSION 0.13.8
