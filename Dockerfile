@@ -1,6 +1,7 @@
 FROM heroku/cedar:14
 MAINTAINER Arve Knudsen <arve.knudsen@gmail.com>
 
+ENV PATH /opt/bin:$PATH
 EXPOSE 9000
 ENTRYPOINT ["sbt"]
 
