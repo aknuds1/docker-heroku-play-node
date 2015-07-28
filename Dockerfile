@@ -4,16 +4,19 @@ MAINTAINER Arve Knudsen <arve.knudsen@gmail.com>
 ENV PATH /opt/bin:$PATH
 EXPOSE 9000
 ENTRYPOINT ["sbt"]
-
-# Install sbt/activator
 WORKDIR /opt
-RUN mkdir /opt/bin
-RUN curl -s -L https://raw.githubusercontent.com/paulp/sbt-extras/master/sbt -o /opt/bin/sbt
-RUN chmod +x /opt/bin/sbt
-RUN wget http://downloads.typesafe.com/typesafe-activator/1.3.2/typesafe-activator-1.3.2.zip
-RUN unzip typesafe-activator-1.3.2.zip
-RUN rm typesafe-activator-1.3.2.zip
-ENV PATH /opt/activator-1.3.2:$PATH
+
+# Install sbt
+ENV SBT_VERSION 0.13.8
+RUN curl -s -L https://dl.bintray.com/sbt/native-packages/sbt/0.13.8/sbt-${SBT_VERSION}.tgz  | tar xz
+ENV PATH /opt/sbt/bin:$PATH
+
+# Install activator
+ENV ACTIVATOR_VERSION 1.3.5
+RUN wget http://downloads.typesafe.com/typesafe-activator/${ACTIVATOR_VERSION}/typesafe-activator-${ACTIVATOR_VERSION}.zip
+RUN unzip typesafe-activator-${ACTIVATOR_VERSION}.zip
+RUN rm typesafe-activator-${ACTIVATOR_VERSION}.zip
+ENV PATH /opt/activator-${ACTIVATOR_VERSION}:$PATH
 
 # Install Node
 ENV NODE_VERSION 0.12.7
